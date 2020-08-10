@@ -1,0 +1,45 @@
+﻿@page 
+@using Microsoft.AspNetCore.Antiforgery
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="row">
+    <div class="col-md-6 text-center">
+        <h3>AJAX (HTMX)</h3>
+        @Html.Partial("_Button", new CountModel() {Number = Model.Number})
+    </div>
+    <div class="col-md-6 text-center">
+        <h3>HTML FORM (Classic)</h3>
+        <form method="post">
+            <input type="hidden" value="@Model.Number"/>
+            <button class="btn btn-primary">
+                @if (Model.Number == 0)
+                {
+                    <text>Click Me</text>
+                }
+                else
+                {
+                    <text>Click Me (Count at @Model.Number)</text>
+                }
+            </button>
+        </form>
+    </div>
+    <div class="col-md-12 text-center">
+        <h3>Form Hijack</h3>
+        <form hx-post="@Url.Page("Index", "Message")" hx-swap="outerHTML">
+            <div class="form-group">
+                <label>First Name</label>
+                <input type="text" name="FirstName" required/>
+            </div>
+            <div class="form-group">
+                <label>Last Name</label>
+                <input type="text" name="LastName" required/>
+            </div>
+            <button class="btn btn-primary">
+                Submit
+            </button>
+        </form>
+    </div>
+</div>

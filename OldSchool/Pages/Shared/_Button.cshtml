@@ -1,0 +1,19 @@
+@using Microsoft.AspNetCore.Antiforgery
+@model CountModel
+@inject IAntiforgery Antiforgery
+@{
+    var tokens = Antiforgery.GetAndStoreTokens(this.Context);
+}
+<!-- have a button POST a click via AJAX -->
+<button class="btn btn-primary" 
+        hx-post="@Url.Page("Index", new { number = Model.Number })" 
+        hx-swap="outerHTML">
+    @if (Model.Number == 0)
+    {
+        <text>Click Me</text> 
+    }
+    else
+    {
+        <text>Click Me (Count at @Model.Number)</text>
+    }
+</button>
